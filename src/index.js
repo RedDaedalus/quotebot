@@ -37,7 +37,23 @@ async function handleRequest(request) {
   if (body.type === 1) {
     return ping()
   } else if (body.type === 2) {
-    return quoteMessage(body)
+    if (body.data.name === 'quote') {
+      return quoteMessage(body)
+    } else {
+      return new Response(JSON.stringify({
+        type: 3,
+        data: {
+          flags: 64,
+          content: `
+<:iconquote:778925506081980437> **Welcome to QuoteBot**
+QuoteBot introduces easy enhanced quotes using [slash commands](https://support.discord.com/hc/en-us/articles/1500000368501).
+To use the bot, just type \`/quote <message link>\`, and a quote will be displayed.
+
+<:CreateInvite:329756691555942410> **Click [here](https://discord.com/api/oauth2/authorize?client_id=812892218925776916&permissions=65536&scope=bot+applications.commands) to invite QuoteBot**
+          `
+        }
+      }))
+    }
   }
 }
 
