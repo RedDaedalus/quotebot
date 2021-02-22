@@ -45,11 +45,15 @@ async function handleRequest(request) {
         data: {
           flags: 64,
           content: `
-<:iconquote:778925506081980437> **Welcome to QuoteBot**
+<:iconquote:778925506081980437> **__Welcome to QuoteBot__**
 QuoteBot introduces easy enhanced quotes using [slash commands](https://support.discord.com/hc/en-us/articles/1500000368501).
 To use the bot, just type \`/quote <message link>\`, and a quote will be displayed.
 
-<:CreateInvite:329756691555942410> **Click [here](https://discord.com/api/oauth2/authorize?client_id=812892218925776916&permissions=65536&scope=bot+applications.commands) to invite QuoteBot**
+<:PrivateChannel:274789151214403585> __Privacy Policy__
+We do not collect any user data beyond basic usage statistics.
+
+<:CreateInvite:329756691555942410> __Invite QuoteBot__
+Click [here](https://discord.com/api/oauth2/authorize?client_id=812892218925776916&permissions=65536&scope=bot+applications.commands)
           `
         }
       }))
