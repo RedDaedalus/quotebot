@@ -50,7 +50,7 @@ QuoteBot introduces easy enhanced quotes using [slash commands](https://support.
 To use the bot, just type \`/quote <message link>\`, and a quote will be displayed.
 
 <:PrivateChannel:274789151214403585> __Privacy Policy__
-We do not collect any user data beyond basic usage statistics.
+We do not collect any user data beyond basic anonymous usage statistics.
 
 <:CreateInvite:329756691555942410> __Invite QuoteBot__
 Click [here](https://discord.com/api/oauth2/authorize?client_id=812892218925776916&permissions=65536&scope=bot+applications.commands)
