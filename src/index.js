@@ -41,7 +41,7 @@ async function handleRequest(request) {
       return quoteMessage(body)
     } else {
       return new Response(JSON.stringify({
-        type: 3,
+        type: 4,
         data: {
           flags: 64,
           content: `
@@ -68,7 +68,7 @@ Click [here](https://discord.com/api/oauth2/authorize?client_id=8128922189257769
  */
 async function error(message) {
   return new Response(JSON.stringify({ 
-    type: 3,
+    type: 4,
     data: {
       flags: 64,
       content: `**Error:** ${message}`
