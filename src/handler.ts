@@ -1,5 +1,5 @@
 import { verifyKey } from "discord-interactions";
-import { ApplicationCommandInteractionDataOptionString as APIStringOption, APIInteraction, APIInteractionResponse, InteractionResponseType, InteractionType, APIGuildInteraction, MessageFlags, APIMessage, APIChannel, PermissionFlagsBits, APIGuildMember, Snowflake, APIInteractionGuildMember, OverwriteType, APIEmbed, APIEmbedImage } from "discord-api-types/v8";
+import { ApplicationCommandInteractionDataOptionString as APIStringOption, APIInteraction, APIInteractionResponse, InteractionResponseType, InteractionType, APIGuildInteraction, MessageFlags, APIMessage } from "discord-api-types/v8";
 import renderMessage from "./render";
 
 export default async function handleRequest(request: Request): Promise<Response> {
@@ -24,18 +24,33 @@ export default async function handleRequest(request: Request): Promise<Response>
                 type: 4,
                 data: {
                     flags: 1 << 6,
+                    //@ts-expect-error
                     embeds: [{
-                        color: 0x7289DA,
-                        title: "<:iconquote:778925506081980437> About QuoteBot",
+                        color: 0x2f3136,
+                        title: "About QuoteBot",
                         description: "QuoteBot is a bot made by Daedalus#0001 designed to allow you to send simple, easy to read quotes. To use it, just type `/quote <message link to quote>`.",
                         fields: [{
-                            name: "» Support Server",
-                            value: "https://discord.gg/k4Wr7YTQJK",
-                            inline: true
+                            name: "» Privacy Policy",
+                            value: "QuoteBot does not track any user data besides the anonymous usage statistics CloudFlare provides.",
+                        }]
+                    }],
+                    components: [{
+                        type: 1,
+                        components: [{
+                            type: 2,
+                            style: 5,
+                            url: "https://discord.com/api/oauth2/authorize?client_id=812892218925776916&permissions=65536&scope=applications.commands+bot",
+                            label: "Invite QuoteBot"
                         }, {
-                            name: "» Source",
-                            value: "https://github.com/RedDaedalus/quotebot",
-                            inline: true
+                            type: 2,
+                            style: 5,
+                            url: "https://discord.gg/k4Wr7YTQJK",
+                            label: "Support Server"
+                        }, {
+                            type: 2,
+                            style: 5,
+                            url: "https://github.com/RedDaedalus/quotebot",
+                            label: "Source"
                         }]
                     }]
                 }
@@ -74,7 +89,16 @@ export default async function handleRequest(request: Request): Promise<Response>
         }
 
         if (interaction.data!.name === "source") {
-            return respond("```json\n" + JSON.stringify(message, null, "\t") + "\n```", MessageFlags.EPHEMERAL);
+            const body = new FormData();
+            body.append("file", new Blob([JSON.stringify(message, null, "  ")], { type: "application/json" }), "message.json");
+
+            fetch(`https://discord.com/api/v9/webhooks/${interaction.application_id}/${interaction.token}/messages/@original`, {
+                method: "PATCH",
+                body
+            });
+
+            return respond({ type: 5 });
+
         }
     }
 
