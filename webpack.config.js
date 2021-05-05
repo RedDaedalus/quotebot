@@ -1,10 +1,24 @@
-const webpack = require('webpack')
+const path = require("path");
+const mode = process.env.NODE_ENV || "production";
 
 module.exports = {
-    target: 'webworker',
-    mode: 'production',
-    entry: './src/index.js',
-    plugins: [
-        new webpack.ProvidePlugin({ URL: 'url-polyfill' })
-    ]
-}
+  mode,
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "worker.js",
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"],
+    plugins: [],
+    fallback: { util: false }
+  },
+  module: {
+    rules: [{
+      test: /\.tsx?$/,
+      loader: "ts-loader",
+      options: {
+        transpileOnly: true
+      }
+    }]
+  }
+};
