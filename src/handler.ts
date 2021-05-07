@@ -90,6 +90,7 @@ export default async function handleRequest(request: Request): Promise<Response>
 
         if (interaction.data!.name === "source") {
             const body = new FormData();
+            body.append("content", `Showing source for message [${message.id}](<https://discord.com/channels/${guildId}/${interaction.channel_id}/${message.id}>):`);
             body.append("file", new Blob([JSON.stringify(message, null, "  ")], { type: "application/json" }), "message.json");
 
             fetch(`https://discord.com/api/v9/webhooks/${interaction.application_id}/${interaction.token}/messages/@original`, {
